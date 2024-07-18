@@ -29,7 +29,9 @@ namespace FitnessFlowBackend.Controllers
 
             if (user == null) return BadRequest("That email is already registered!");
 
-            return Ok(user);
+            var token = GenerateJwtToken(user);
+
+            return Ok(new { token = token });
         }
 
         [HttpPost("login")]
@@ -40,7 +42,7 @@ namespace FitnessFlowBackend.Controllers
             if (user == null) return BadRequest("Invalid email or password");
 
             var token = GenerateJwtToken(user);
-            return Ok(new { Token = token });
+            return Ok(new { token = token });
         }
 
         private string GenerateJwtToken(User user)
