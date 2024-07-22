@@ -1,7 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environments';
+import { environment } from '../../../environments/environments';
 
 interface UserDTO {
   email: string;
@@ -34,5 +34,21 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+  }
+
+  getUserIdFromToken(): string {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return '';
+  }
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.userId;
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return '';
+  }
   }
 }

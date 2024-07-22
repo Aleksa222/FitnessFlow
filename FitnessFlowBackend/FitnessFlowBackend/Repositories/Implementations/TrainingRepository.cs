@@ -13,11 +13,11 @@ namespace FitnessFlowBackend.Repositories.Implementations
         {
             _context = context;
         }
-        public async Task<IEnumerable<Training>> GetByUserIdAsync(int userId)
+        public async Task<IEnumerable<Training>> GetByUserIdAsync(Guid userId)
         {
             return await _context.Trainings.Where(x => x.UserId == userId).ToListAsync();
         }
-        public async Task<Training> GetByIdAsync(int id)
+        public async Task<Training> GetByIdAsync(Guid id)
         {
             return await _context.Trainings.FindAsync(id);
         }
