@@ -8,9 +8,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
-  styles: ``
+  styles: []
 })
 export class NavbarComponent {
+  isMenuOpen = false;
+
   constructor(private router: Router, private authService: AuthService) {}
 
   logout() {
@@ -25,7 +27,14 @@ export class NavbarComponent {
   }
 
   isActive(page: string): boolean {
-    return this.router.url === `/${page}`
+    return this.router.url === `/${page}`;
   }
 
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+      menu.style.transform = this.isMenuOpen ? 'translateX(0)' : 'translateX(100%)';
+    }
+  }
 }
