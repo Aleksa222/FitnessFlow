@@ -1,2 +1,134 @@
 <app-navbar></app-navbar>
-<p>my-trainings-page works!</p>
+<div class="h-screen pt-20 md:pt-15 px-4">
+  <div class="container mx-auto flex flex-col items-center pt-12 md:pt-6">
+    <div class="text-center md:mb-12">
+      <p class="text-4xl font-bold text-indigo-800">Track Your Weekly Progress</p>
+      <p class="text-2xl mt-4 text-gray-600">Tracking your progress is crucial for understanding your fitness journey. It helps you stay motivated and achieve your goals.</p>
+    </div>
+
+    <div class="flex flex-col md:flex-row w-full">
+      <!-- Left Column -->
+      <div class="flex flex-col w-full md:w-1/3 px-4 mb-8 md:mb-0">
+        <form [formGroup]="trainingStatsForm" (ngSubmit)="onFiltersChange()">
+          <label class="text-gray-500 md:text-2xl" for="duration">Please select a year</label>
+          <mat-form-field appearance="fill" class="w-full mt-2 mb-4">
+            <mat-label>Year</mat-label>
+            <mat-select id="year" formControlName="year">
+              <mat-option [value]="null">Select Year</mat-option>
+              <mat-option value="2021">2021</mat-option>
+              <mat-option value="2022">2022</mat-option>
+              <mat-option value="2023">2023</mat-option>
+              <mat-option value="2024">2024</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <label class="text-gray-500 md:text-2xl" for="duration">Please select a month</label>
+          <mat-form-field appearance="fill" class="w-full mt-2">
+            <mat-label>Month</mat-label>
+            <mat-select id="month" formControlName="month">
+              <mat-option [value]="null">Select Month</mat-option>
+              <mat-option value="1">January</mat-option>
+              <mat-option value="2">February</mat-option>
+              <mat-option value="3">March</mat-option>
+              <mat-option value="4">April</mat-option>
+              <mat-option value="5">May</mat-option>
+              <mat-option value="6">June</mat-option>
+              <mat-option value="7">July</mat-option>
+              <mat-option value="8">August</mat-option>
+              <mat-option value="9">September</mat-option>
+              <mat-option value="10">October</mat-option>
+              <mat-option value="11">November</mat-option>
+              <mat-option value="12">December</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="flex justify-center w-full">
+            <button type="submit" class="text-white bg-indigo-800 mt-8 py-2 px-6 rounded font-medium w-1/3">
+              See stats
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Column -->
+      <div class="flex flex-col w-full md:w-2/3 px-4">
+        <div *ngIf="!dataFetched" class="flex flex-col items-center justify-center h-full pt-12">
+          <img src="assets/images/my-trainings-image.jpg" alt="Placeholder" class="w-[95%] h-[100%]" />
+        </div>
+
+        <div *ngIf="dataFetched || trainingStats.length" class="flex flex-wrap gap-4 md:mt-6">
+          <div class="ml-8 md:ml-0 flex-1 min-w-[200px] max-w-[300px] bg-white shadow-md rounded">
+            <div class="bg-indigo-800 text-white text-center py-1 rounded-t">
+              <h3 class="text-2xl font-bold">Week 1</h3>
+            </div>
+            <div class="p-4">
+              <div *ngIf="getWeekStats(1) as weekStats; else noTrainings">
+                <p><span class="font-bold">Total Duration:</span> {{ formatDuration(weekStats?.totalDurationInSeconds || 0) }}</p>
+                <p><span class="font-bold">Number of Trainings:</span> {{ weekStats?.numberOfTrainings || 0 }}</p>
+                <p><span class="font-bold">Avg Intensity Level:</span> {{ (weekStats?.averageIntensity || 0) | number:'1.2-2' }}/10</p>
+                <p><span class="font-bold">Avg Fatigue Level:</span> {{ (weekStats?.averageFatigue || 0) | number:'1.2-2' }}/10</p>
+              </div>
+              <ng-template #noTrainings>
+                <p class="text-red-500">No trainings recorded for this week.</p>
+              </ng-template>
+            </div>
+          </div>
+  
+          <!-- Week 2 -->
+          <div class="ml-8 md:ml-0 flex-1 min-w-[200px] max-w-[300px] bg-white shadow-md rounded">
+            <div class="bg-indigo-800 text-white text-center py-1 rounded-t">
+              <h3 class="text-2xl font-bold">Week 2</h3>
+            </div>
+            <div class="p-4">
+              <div *ngIf="getWeekStats(2) as weekStats; else noTrainings">
+                <p><span class="font-bold">Total Duration:</span> {{ formatDuration(weekStats?.totalDurationInSeconds || 0) }}</p>
+                <p><span class="font-bold">Number of Trainings:</span> {{ weekStats?.numberOfTrainings || 0 }}</p>
+                <p><span class="font-bold">Avg Intensity Level:</span> {{ (weekStats?.averageIntensity || 0) | number:'1.2-2' }}/10</p>
+                <p><span class="font-bold">Avg Fatigue Level:</span> {{ (weekStats?.averageFatigue || 0) | number:'1.2-2' }}/10</p>
+              </div>
+              <ng-template #noTrainings>
+                <p class="text-red-500">No trainings recorded for this week.</p>
+              </ng-template>
+            </div>
+          </div>
+  
+          <!-- Week 3 -->
+          <div class="ml-8 md:ml-0 flex-1 min-w-[200px] max-w-[300px] bg-white shadow-md rounded">
+            <div class="bg-indigo-800 text-white text-center py-1 rounded-t">
+              <h3 class="text-2xl font-bold">Week 3</h3>
+            </div>
+            <div class="p-4">
+              <div *ngIf="getWeekStats(3) as weekStats; else noTrainings">
+                <p><span class="font-bold">Total Duration:</span> {{ formatDuration(weekStats?.totalDurationInSeconds || 0) }}</p>
+                <p><span class="font-bold">Number of Trainings:</span> {{ weekStats?.numberOfTrainings || 0 }}</p>
+                <p><span class="font-bold">Avg Intensity Level:</span> {{ (weekStats?.averageIntensity || 0) | number:'1.2-2' }}/10</p>
+                <p><span class="font-bold">Avg Fatigue Level:</span> {{ (weekStats?.averageFatigue || 0) | number:'1.2-2' }}/10</p>
+              </div>
+              <ng-template #noTrainings>
+                <p class="text-red-500">No trainings recorded for this week.</p>
+              </ng-template>
+            </div>
+          </div>
+  
+          <!-- Week 4 -->
+          <div class="ml-8 md:ml-0 flex-1 min-w-[200px] max-w-[300px] bg-white shadow-md rounded">
+            <div class="bg-indigo-800 text-white text-center py-1 rounded-t">
+              <h3 class="text-2xl font-bold">Week 4</h3>
+            </div>
+            <div class="p-4">
+              <div *ngIf="getWeekStats(4) as weekStats; else noTrainings">
+                <p><span class="font-bold">Total Duration:</span> {{ formatDuration(weekStats?.totalDurationInSeconds || 0) }}</p>
+                <p><span class="font-bold">Number of Trainings:</span> {{ weekStats?.numberOfTrainings || 0 }}</p>
+                <p><span class="font-bold">Avg Intensity Level:</span> {{ (weekStats?.averageIntensity || 0) | number:'1.2-2' }}/10</p>
+                <p><span class="font-bold">Avg Fatigue Level:</span> {{ (weekStats?.averageFatigue || 0) | number:'1.2-2' }}/10</p>
+              </div>
+              <ng-template #noTrainings>
+                <p class="text-red-500">No trainings recorded for this week.</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

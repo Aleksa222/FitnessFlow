@@ -27,5 +27,19 @@ namespace FitnessFlowBackend.Controllers
 
             return Ok(training);
         }
+
+        [HttpGet("/get/{userId}")]
+        public async Task<IActionResult> GetTrainingsByUserId(Guid userId)
+        {
+            var trainings = await _trainingService.GetByUserIdAsync(userId);
+            return Ok(trainings);
+        }
+
+        [HttpGet("get/{userId}/stats")]
+        public async Task<IActionResult> GetTrainingStatsByUser(Guid userId, int? year, int? month, int? week)
+        {
+            var statistics = await _trainingService.GetTrainingStatsByUserIdAsync(userId, year, month, week);
+            return Ok(statistics);
+        }
     }
 }

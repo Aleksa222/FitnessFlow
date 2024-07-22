@@ -1,4 +1,5 @@
 ﻿using FitnessFlowBackend.Models;
+using FitnessFlowBackend.DTOs;
 
 namespace FitnessFlowBackend.Repositories.Interfaces
 {
@@ -10,5 +11,7 @@ namespace FitnessFlowBackend.Repositories.Interfaces
         Task UpdateAsync(Training training);
         Task DeleteAsync(Training training);
         Task SaveChangesAsync();
+        Task<IEnumerable<TrainingStatsDTO>> GetTrainingStatsByUserIdAsync(Guid userId, int? year, int? month, int? week);
+
     }
 }

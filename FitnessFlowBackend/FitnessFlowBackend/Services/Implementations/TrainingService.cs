@@ -1,4 +1,5 @@
-﻿using FitnessFlowBackend.Enums;
+﻿using FitnessFlowBackend.DTOs;
+using FitnessFlowBackend.Enums;
 using FitnessFlowBackend.Models;
 using FitnessFlowBackend.Repositories.Interfaces;
 using FitnessFlowBackend.Services.Interfaces;
@@ -34,5 +35,16 @@ namespace FitnessFlowBackend.Services.Implementations
 
             return training;
         }
+
+        public async Task<IEnumerable<Training>> GetByUserIdAsync(Guid userId)
+        {
+            return await _trainingRepository.GetByUserIdAsync(userId);
+        }
+
+        public async Task<IEnumerable<TrainingStatsDTO>> GetTrainingStatsByUserIdAsync(Guid userId, int? year, int? month, int? week)
+        {
+            return await _trainingRepository.GetTrainingStatsByUserIdAsync(userId, year, month, week);
+        }
+
     }
 }
