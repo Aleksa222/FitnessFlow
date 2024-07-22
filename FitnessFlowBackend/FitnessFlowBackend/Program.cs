@@ -20,6 +20,7 @@ builder.Services.AddDbContext<FitnessFlowDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITrainingService, TrainingService>();
 
 //Adding JWT Authentication
 builder.Services.AddAuthentication(options =>

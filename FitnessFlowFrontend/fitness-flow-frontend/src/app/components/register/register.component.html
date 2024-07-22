@@ -14,7 +14,7 @@
                     <div class="flex items-center">
                     <div class="w-full h-0.5 bg-gray-200"></div>
                     </div>
-                                
+
                     <form [formGroup]="registerForm" (ngSubmit)="register()" class="space-y-4 md:space-y-6">
             
                     <div>
@@ -33,15 +33,26 @@
                             <small class="text-red-500" *ngIf="formControls['password'].errors['minlength']">Password must be at least 6 characters</small>
                         </div>
                     </div>
+                    <div>
+                        <label for="confirmPassword" class="block mb-2 text-sm font-medium text-gray-900">Confirm Password</label>
+                        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Confirm your password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5" required>
+                        <div *ngIf="isSubmitted && formControls['confirmPassword'].errors">
+                          <small class="text-red-500" *ngIf="formControls['confirmPassword'].errors['required']">Password confirmation is required</small>
+                          <small class="text-red-500" *ngIf="formControls['confirmPassword'].errors['mustMatch']">Passwords don`t match</small>
+                        </div>
+                      </div>
             
                     <div *ngIf="errorMessage" class="text-red-500 text-sm">
                         {{ errorMessage }}
                     </div>
-                    <button type="submit" class="text-white bg-teal-600 py-1.5 px-4 rounded font-medium w-full">
+                    <button type="submit" class="text-white bg-indigo-600 py-1.5 px-4 rounded font-medium w-full">
                     Sign up
                     </button>
                         
-
+                    <p class="text-sm font-light text-gray-500">
+                        Back to the login page <a routerLink="/login"
+                        class="button font-medium text-indigo-600 hover:underline"> << </a>
+                    </p>
                     </form>
             
                 </div>

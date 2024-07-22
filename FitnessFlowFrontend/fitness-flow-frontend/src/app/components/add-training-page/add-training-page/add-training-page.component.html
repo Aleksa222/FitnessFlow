@@ -1,0 +1,95 @@
+<app-navbar></app-navbar>
+<div class="h-screen pt-20 md:pt-5">
+  <!--Main-->
+  <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+  <div class="container pt-8 md:pt-20 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-stretch">
+      
+    <!--Left Col-->
+    <div class="flex flex-col w-full xl:w-3/6 justify-center lg:items-start overflow-y-hidden">
+      <p class="my-4 text-2xl md:ml-5 md:text-5xl text-indigo-800 font-bold leading-tight text-center md:text-left slide-in-bottom-h1">Add New Training</p>
+      
+      <mat-form-field appearance="fill" class="w-full md:w-3/4 lg:w-3/4" style="margin-top: 1rem;">
+        <mat-label>Training Type</mat-label>
+        <mat-select id="training-type" formControlName="trainingType">
+          <mat-option value=0>Cardio</mat-option>
+          <mat-option value=1>Flexibility</mat-option>
+          <mat-option value=2>Yoga</mat-option>
+          <mat-option value=3>Strength</mat-option>
+        </mat-select>
+        <div *ngIf="isSubmitted && formControls['trainingType'].errors">
+            <small class="text-red-500" *ngIf="formControls['trainingType'].errors['required']">This field is required.</small>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="w-full md:w-3/4 lg:w-3/4">
+        <mat-label>Calories Burned</mat-label>
+        <input matInput id="calories-burned" type="number" formControlName="caloriesBurned" min="0">
+        <div *ngIf="isSubmitted && formControls['caloriesBurned'].errors">
+            <small class="text-red-500" *ngIf="formControls['caloriesBurned'].errors['required']">This field is required.</small>
+        </div>
+      </mat-form-field>
+
+      <label class="text-gray-500 md:text-2xl md:mb-6 mb-2" for="duration">Duration</label>
+      <div class="flex items-center w-full md:w-3/4 lg:w-3/4">
+        <mat-form-field appearance="fill" class="flex-1 mr-2">
+          <mat-label>Hours</mat-label>
+          <input matInput type="number" formControlName="durationHours" [defaultValue]="1" min="0" max="59" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="flex-1 mx-2">
+          <mat-label>Minutes</mat-label>
+          <input matInput type="number" formControlName="durationMinutes" [defaultValue]="0" min="0" max="59" placeholder="00" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="flex-1 ml-2">
+          <mat-label>Seconds</mat-label>
+          <input matInput type="number" formControlName="durationSeconds" [defaultValue]="0" min="0" max="59" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+        </mat-form-field>
+      </div>
+
+      <label class="text-gray-500 md:text-2xl md:mb-6" for="fatigue">Intensity Level</label>
+      <mat-slider style="width: 75%;"  color="primary" min="1" max="10" step="1" discrete>
+          <input matSliderThumb formControlName="intensity">
+      </mat-slider>
+      
+      <label class="text-gray-500 md:text-2xl md:mb-6" for="fatigue">Fatigue Level</label>
+      <mat-slider style="width: 75%;"  color="primary" min="1" max="10" step="1" discrete>
+          <input matSliderThumb formControlName="fatigue">
+      </mat-slider>
+
+    </div>
+    
+    <!--Right Col-->
+    <div class="flex flex-col w-full xl:w-3/6 py-6 overflow-y-hidden items-center md:mt-12">
+        
+        <mat-form-field appearance="fill" class="w-full md:w-3/4 lg:w-3/4 mb-4">
+            <mat-label>Date</mat-label>
+            <input matInput formControlName="date" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>
+        
+        <label class="text-gray-500 text-lg md:text-xl lg:text-2xl mb-2 w-full md:w-3/4 lg:w-3/4 text-left">Starting Time</label>
+        <div class="flex w-full md:w-3/4 lg:w-3/4">
+            <mat-form-field appearance="fill" class="flex-1 mr-2">
+                <mat-label>Hours</mat-label>
+                <input matInput type="number" formControlName="hours" min="0" max="23">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="flex-1 ml-2">
+                <mat-label>Minutes</mat-label>
+                <input matInput type="number" formControlName="minutes" min="0" max="59">
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-full h-40 md:w-3/4 lg:w-3/4 mb-4">
+            <mat-label>Additional Notes (optional)</mat-label>
+            <textarea matInput id="notes" formControlName="notes"></textarea>
+        </mat-form-field>
+
+        <button type="submit" class="text-white bg-indigo-800 py-2 px-6 rounded font-medium w-2/4 md:w-1/4">
+            Submit
+        </button>
+    </div>
+
+
+  </div>
+</form>
+</div>

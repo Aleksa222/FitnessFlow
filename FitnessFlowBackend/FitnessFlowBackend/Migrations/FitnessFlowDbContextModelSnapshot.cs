@@ -44,24 +44,18 @@ namespace FitnessFlowBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateOnly>("TrainingDate")
-                        .HasColumnType("date");
-
-                    b.Property<TimeOnly>("TrainingTime")
-                        .HasColumnType("time without time zone");
+                    b.Property<DateTime>("TrainingDateTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("TrainingType")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("UserId1")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("trainings", (string)null);
                 });
@@ -89,7 +83,9 @@ namespace FitnessFlowBackend.Migrations
                 {
                     b.HasOne("FitnessFlowBackend.Models.User", null)
                         .WithMany("Trainings")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FitnessFlowBackend.Models.User", b =>

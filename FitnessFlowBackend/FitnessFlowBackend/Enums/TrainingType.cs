@@ -5,7 +5,6 @@
         Cardio,
         Flexibility,
         Yoga,
-        Pilates,
-        Other
+        Strength
     }
 }

@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "../../navbar/navbar/navbar.component";
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'app-my-trainings-page',
   standalone: true,
   imports: [NavbarComponent],
-  templateUrl: './home-page.component.html',
+  templateUrl: './my-trainings-page.component.html',
   styles: ``
 })
-export class HomePageComponent {
+export class MyTrainingsPageComponent {
 
 }
